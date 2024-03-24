@@ -1,0 +1,38 @@
+   Tema 1 APD - Marching squares
+
+* the program implements parallel image processing using threads: it divides
+the workload among multiple threads for efficiency;
+
+* the march_squares function: employs threads to parallelize the computation,
+processing concurrently;
+
+* the shared_data_t structure has: 
+    - variables for the processing;
+    - synchronization constructs;
+    - thread-specific information.
+
+* contour maps and the grid structure are allocated dynamically;
+
+* in main: 
+    - initialize the shared_data;
+    - read the input image;
+    - loads contour maps from files.
+
+* a thread has unique id, used to distribute the workload, and is created in
+main based on the value given as parameter and stored in an array;
+
+* the barrier ensures that threads work collectively: it waits for rescale,
+sample and march to finish;
+
+* memory is managed: mutexes prevent data races when allocating and rescaling -
+when rescaling, a single thread allocates dynamically;
+
+* the program handles in parallel:
+    - rescaling operations;
+    - image processing;
+    - contour map updates.
+
+* the parallelization means dividing the exterior "for" of each part of
+alghorithm equally to each thread;
+
+* deallocation is done in free_resources, after processing is complete.
